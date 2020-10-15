@@ -7,32 +7,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.csquare.adapters.UsersAdapter;
-import com.csquare.data.UsersViewModel;
-import com.csquare.databinding.ActivityDetailsBinding;
-import com.csquare.databinding.FragmentUsersBinding;
+import com.csquare.databinding.FragmentDetailsBinding;
 import com.csquare.roomDatabase.RoomDBClient;
 import com.csquare.roomDatabase.Users;
-import com.csquare.roomDatabase.UsersRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DetailsFragment extends Fragment {
 
-    ActivityDetailsBinding binding;
+    FragmentDetailsBinding binding;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = ActivityDetailsBinding.inflate(inflater, container, false);
+        binding = FragmentDetailsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

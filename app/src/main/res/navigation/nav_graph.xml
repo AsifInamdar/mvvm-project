@@ -19,7 +19,7 @@
         android:id="@+id/UserDetailsFragment"
         android:name="com.csquare.fragments.DetailsFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/activity_details">
+        tools:layout="@layout/fragment_details">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

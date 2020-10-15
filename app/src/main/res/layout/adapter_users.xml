@@ -13,14 +13,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:paddingLeft="10dp"
+        android:paddingTop="20dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="20dp">
 
         <ImageView
             android:id="@+id/avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            app:imageUrl="@{user.avatar}"
             android:visibility="gone"
+            app:imageUrl="@{user.avatar}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tool:src="@drawable/logo" />
@@ -31,11 +34,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="@{user.first_name + ` `+user.last_name}"
+            android:textColor="@color/black"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/black"
-            android:visibility="gone"
             tool:text="Name" />
 
         <TextView

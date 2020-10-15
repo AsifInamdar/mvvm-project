@@ -1,7 +1,6 @@
 package com.csquare.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +11,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.csquare.R;
-import com.csquare.data.User;
-import com.csquare.activities.DetailsActivity;
 import com.csquare.roomDatabase.Users;
 
 import java.util.ArrayList;
@@ -54,10 +50,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra("id", item.getId());
-                context.startActivity(intent);*/
-
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", item.getId());
                 Navigation.findNavController(holder.itemView).navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
