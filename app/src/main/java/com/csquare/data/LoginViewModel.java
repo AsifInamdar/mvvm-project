@@ -17,6 +17,11 @@ import com.csquare.api.NoConnectivityException;
 import com.csquare.api.RestClient;
 import com.csquare.api.pojos.LoginInputPojo;
 import com.csquare.api.pojos.LoginResponse;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +60,15 @@ public class LoginViewModel extends ViewModel {
                         if (response.isSuccessful()) {
                             new PrefManager(context).setToken(response.body().getToken());
                             isLoginSuccess.postValue(true);
+                        } else {
+                            if (response.errorBody()!=null) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                    showToast(jsonObject.optString("error"));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     }
 
