@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/UserDetailsFragment"
-        android:name="com.csquare.activities.DetailsActivity"
+        android:name="com.csquare.fragments.DetailsFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/activity_details">
 

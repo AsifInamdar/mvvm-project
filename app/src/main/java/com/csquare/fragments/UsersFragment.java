@@ -7,14 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.csquare.adapters.UsersAdapter;
-import com.csquare.data.User;
 import com.csquare.data.UsersViewModel;
 import com.csquare.databinding.FragmentUsersBinding;
+import com.csquare.roomDatabase.RoomDBClient;
+import com.csquare.roomDatabase.Users;
 import com.csquare.roomDatabase.UsersRepository;
 
 import java.util.ArrayList;
@@ -26,8 +28,9 @@ public class UsersFragment extends Fragment {
     UsersViewModel usersViewModel;
     int pageNumber = 1, preLast = -1, totalCount = 0;
     LinearLayoutManager layoutManager;
-    List<User> userList = new ArrayList<>();
-
+    List<Users> userList = new ArrayList<>();
+    UsersRepository usersRepository;
+    UsersAdapter adapter;
 
     @Override
     public View onCreateView(
@@ -47,18 +50,12 @@ public class UsersFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(getActivity());
 
-        UsersAdapter adapter = new UsersAdapter(getActivity());
+        adapter = new UsersAdapter(getActivity());
         binding.rvUsers.setLayoutManager(layoutManager);
         binding.rvUsers.setAdapter(adapter);
 
         usersViewModel.users.observe(requireActivity(), userModel -> {
             totalCount = userModel.getTotalCount();
-            userList.addAll(userModel.getUsers());
-            adapter.setUsers(userModel.getUsers());
-            adapter.notifyItemRangeChanged(0, userList.size());
-            binding.progess.setVisibility(View.GONE);
-
-            binding.tvUserCount.setText(String.valueOf(userList.size()));
         });
 
 
@@ -91,11 +88,29 @@ public class UsersFragment extends Fragment {
             }
         });
 
+
     }
 
     private void getUsers() {
         binding.progess.setVisibility(View.VISIBLE);
         usersViewModel.getUsers(pageNumber, getActivity());
+        retrieveUsers();
+    }
+
+    public void retrieveUsers() {
+
+        RoomDBClient.getInstance(getActivity()).getAppDatabase().usersDao().getUsers().observe(requireActivity(), new Observer<List<Users>>() {
+            @Override
+            public void onChanged(List<Users> users) {
+
+                userList.addAll(users);
+                adapter.setUsers(users);
+                adapter.notifyItemRangeChanged(0, userList.size());
+                binding.progess.setVisibility(View.GONE);
+
+                binding.tvUserCount.setText(String.valueOf(users.size()));
+            }
+        });
     }
 
 }

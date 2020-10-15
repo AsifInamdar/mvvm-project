@@ -2,6 +2,7 @@ package com.csquare.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.databinding.library.baseAdapters.BR;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.csquare.R;
 import com.csquare.data.User;
 import com.csquare.activities.DetailsActivity;
+import com.csquare.roomDatabase.Users;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +26,14 @@ import java.util.List;
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
     Context context;
-    private List<User> users = new ArrayList<>();
+    private List<Users> users = new ArrayList<>();
 
     public UsersAdapter(Context context) {
         this.context = context;
     }
 
-    public void setUsers(List<User> users) {
-        this.users.addAll(users);
+    public void setUsers(List<Users> users) {
+        this.users = users;
     }
 
     @NonNull
@@ -44,15 +48,19 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        User item = users.get(position);
+        Users item = users.get(position);
         holder.viewDataBinding.setVariable(BR.user, item);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailsActivity.class);
+                /*Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("id", item.getId());
-                context.startActivity(intent);
+                context.startActivity(intent);*/
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", item.getId());
+                Navigation.findNavController(holder.itemView).navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
             }
         });
     }

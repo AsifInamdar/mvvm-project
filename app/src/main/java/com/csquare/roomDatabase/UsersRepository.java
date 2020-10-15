@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersRepository {
-    AppDatabase appDatabase;
+
     private List<Users> users = new ArrayList<>();
     private UsersDao usersDao;
 

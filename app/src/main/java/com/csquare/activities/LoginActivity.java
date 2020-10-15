@@ -22,10 +22,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*if (!new PrefManager(this).getToken().isEmpty()) {
+        if (!new PrefManager(this).getToken().isEmpty()) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
-        }*/
+        }
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
