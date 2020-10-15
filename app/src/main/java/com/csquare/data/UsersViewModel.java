@@ -1,12 +1,14 @@
 package com.csquare.data;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.csquare.SquareUtil;
+import com.csquare.api.NetworkUtil;
 import com.csquare.api.RestClient;
 import com.csquare.api.pojos.UsersListResponse;
 import com.csquare.roomDatabase.UsersRepository;
@@ -26,6 +28,10 @@ public class UsersViewModel extends ViewModel {
 
     public void getUsers(int page, Context context) {
 
+        if (!NetworkUtil.isConnectedToInternet(context)) {
+            Toast.makeText(context, SquareUtil.NO_INTERNET_TEXT, Toast.LENGTH_SHORT).show();
+            return;
+        }
         RestClient.getAPIService().getUsers(SquareUtil.USERS_API + page)
                 .enqueue(new Callback<UsersListResponse>() {
                     @Override

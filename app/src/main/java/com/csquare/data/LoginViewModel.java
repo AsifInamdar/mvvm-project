@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.csquare.PrefManager;
 import com.csquare.SquareUtil;
+import com.csquare.api.NetworkUtil;
 import com.csquare.api.NoConnectivityException;
 import com.csquare.api.RestClient;
 import com.csquare.api.pojos.LoginInputPojo;
@@ -35,6 +36,11 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void login(String email, String pass, Activity context) {
+
+        if (!NetworkUtil.isConnectedToInternet(context)){
+            Toast.makeText(context, SquareUtil.NO_INTERNET_TEXT, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         progressBar.set(View.VISIBLE);
 
